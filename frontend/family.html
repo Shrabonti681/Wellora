@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family Members — Wellora</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+  <div id="sidebar-slot"></div>
+  <div class="main-col">
+    <div id="topbar-slot"></div>
+    <main class="page">
+      <div class="page-head">
+        <div class="page-head-row">
+          <div><h1>Family Members</h1><p class="sub">Manage medicine profiles and caregiver access for your household.</p></div>
+          <div style="display:flex; gap:10px;">
+            <button class="btn btn-secondary" id="btn-invite-cg" onclick="openModal('modal-invite-cg')"></button>
+            <button class="btn btn-primary" id="btn-add-member" onclick="openModal('modal-add-member')"></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-head"><h2>Profiles</h2></div>
+      <div class="grid grid-3" style="margin-bottom:30px;" id="profile-cards"></div>
+
+      <div class="section-head"><h2>Caregivers</h2></div>
+      <div class="card" style="padding:6px 22px; margin-bottom:30px;">
+        <div id="caregiver-list"></div>
+      </div>
+
+      <div class="section-head"><h2>Shared Household Medicine</h2></div>
+      <div class="card card-pad" style="display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+        <div style="display:flex; gap:14px;">
+          <span class="icon-chip chip-gold" style="width:40px;height:40px;" id="ic-shared-pill"></span>
+          <div>
+            <div style="font-weight:700; font-size:14.5px;">Paracetamol household supply</div>
+            <div class="text-faint" style="font-size:12.5px;">Inventory is shared, but each person's dose history stays separate.</div>
+          </div>
+        </div>
+        <button class="btn btn-secondary btn-sm" onclick="location.href='inventory.html'">View inventory</button>
+      </div>
+    </main>
+  </div>
+</div>
+<div id="mobilenav-slot"></div>
+
+<!-- Add family member modal -->
+<div class="modal-overlay" id="modal-add-member">
+  <div class="modal">
+    <h3>Add Family Member</h3>
+    <p class="modal-sub">Create a separate medicine profile for someone in your household.</p>
+    <div class="field"><label>Full name</label><input type="text" placeholder="e.g. Grandmother"></div>
+    <div class="field-row">
+      <div class="field"><label>Relationship</label><select><option>Mother</option><option>Father</option><option>Partner</option><option>Child</option><option>Grandparent</option><option>Other</option></select></div>
+      <div class="field"><label>Date of birth</label><input type="date"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Time zone</label><select><option>GMT+6 — Dhaka</option><option>GMT+0 — London</option></select></div>
+      <div class="field"><label>Preferred language</label><select><option>English</option><option>Bangla</option></select></div>
+    </div>
+    <div class="field"><label>Notes <span class="text-faint">(optional)</span></label><textarea placeholder="e.g. mobility, hearing, preferences"></textarea></div>
+    <p style="font-size:12.5px; font-weight:700; margin-bottom:8px;">Permissions</p>
+    <div class="check-row"><input type="checkbox" checked><label>Can view medicine list</label></div>
+    <div class="check-row"><input type="checkbox" checked><label>Can mark doses as taken</label></div>
+    <div class="check-row"><input type="checkbox"><label>Can update inventory</label></div>
+    <div class="check-row"><input type="checkbox"><label>Can upload prescriptions</label></div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('modal-add-member')">Cancel</button>
+      <button class="btn btn-primary" onclick="confirmAndClose('modal-add-member','Family member added')">Add Family Member</button>
+    </div>
+  </div>
+</div>
+
+<!-- Invite caregiver modal -->
+<div class="modal-overlay" id="modal-invite-cg">
+  <div class="modal">
+    <h3>Invite Caregiver</h3>
+    <p class="modal-sub">Give someone outside your account access to help manage medicines.</p>
+    <div class="field"><label>Caregiver name</label><input type="text" placeholder="e.g. Anika Chowdhury"></div>
+    <div class="field"><label>Email address</label><input type="email" placeholder="caregiver@example.com"></div>
+    <div class="field-row">
+      <div class="field"><label>Relationship</label><input type="text" placeholder="e.g. Sister"></div>
+      <div class="field"><label>Access expiry date</label><input type="date"></div>
+    </div>
+    <div class="field"><label>Permission level</label>
+      <select>
+        <option>View Only — schedules and inventory</option>
+        <option>Dose Support — mark doses taken, skipped, or missed</option>
+        <option>Inventory Manager — add and adjust stock</option>
+        <option>Full Caregiver — manage medicines, prescriptions, schedules</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('modal-invite-cg')">Cancel</button>
+      <button class="btn btn-primary" onclick="confirmAndClose('modal-invite-cg','Invitation sent')">Send Invitation</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/icons.js"></script>
+<script src="js/data.js"></script>
+<script src="js/components.js"></script>
+<script src="js/app.js"></script>
+<script>
+  renderShell("family");
+  document.getElementById("btn-invite-cg").innerHTML = icon('family') + '<span>Invite Caregiver</span>';
+  document.getElementById("btn-add-member").innerHTML = icon('plus') + '<span>Add Family Member</span>';
+  document.getElementById("ic-shared-pill").innerHTML = icon('pill');
+
+  document.getElementById("profile-cards").innerHTML = WELLORA_DATA.profiles.map(p => `
+    <div class="card card-pad">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
+        <span class="avatar" style="width:44px; height:44px; font-size:16px;">${p.initials}</span>
+        <div>
+          <div style="font-weight:700; font-size:15px;">${p.name}</div>
+          <div class="text-faint" style="font-size:12.5px;">${p.relationship}</div>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:10px;">
+        <span class="text-faint">Active medicines</span><span style="font-weight:600;">${p.activeMedicines}</span>
+      </div>
+      <div style="margin-bottom:10px;">${renderStrip(Array(p.dosesTotal).fill(0).map((_,i)=> i < p.dosesTaken ? 'taken' : 'upcoming'))}</div>
+      <div style="display:flex; justify-content:space-between; font-size:12.5px; color:var(--ink-soft); margin-bottom:12px;">
+        <span>Today's progress</span><span class="mono">${p.dosesTaken} of ${p.dosesTotal}</span>
+      </div>
+      <button class="btn btn-secondary btn-sm btn-block" onclick="showToast('Now managing ${p.name}')">Switch to ${p.name}</button>
+    </div>`).join("");
+
+  document.getElementById("caregiver-list").innerHTML = WELLORA_DATA.caregivers.map(c => `
+    <div class="row-item">
+      <span class="avatar" style="width:32px;height:32px;font-size:12px;">${c.name.split(' ').map(w=>w[0]).join('').slice(0,2)}</span>
+      <div class="txt">
+        <div style="font-weight:600;">${c.name} <span class="text-faint" style="font-weight:400;">· ${c.relationship}</span></div>
+        <div class="text-faint" style="font-size:12px;">${c.permission}</div>
+      </div>
+      <span class="pill ${c.status==='Active' ? 'pill-good' : 'pill-low'}">${c.status}</span>
+    </div>`).join("");
+</script>
+</body>
+</html>

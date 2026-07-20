@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Set up your Wellora account</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="onboard-shell">
+  <div class="brand" style="text-decoration:none; margin-bottom:32px;">
+    <span class="brand-mark" id="logo-mark"></span>
+    <span class="brand-name">Wellora</span>
+  </div>
+
+  <div class="onboard-steps" id="step-dots"></div>
+
+  <div class="onboard-box">
+
+    <!-- Step 1 -->
+    <section class="onboard-step" data-step="1">
+      <div class="step-label">Step 1 of 4</div>
+      <h1>Create your profile</h1>
+      <div class="card card-pad">
+        <div class="field">
+          <label>Full name</label>
+          <input type="text" placeholder="e.g. Rheetam Ahmed" value="Rheetam Ahmed">
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Date of birth</label>
+            <input type="date" value="1995-04-12">
+          </div>
+          <div class="field">
+            <label>Preferred language</label>
+            <select><option>English</option><option>Bangla</option><option>Hindi</option></select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Relationship</label>
+          <input type="text" value="Myself" disabled>
+        </div>
+        <div class="field">
+          <label>Time zone</label>
+          <select><option selected>GMT+6 — Dhaka</option><option>GMT+5:30 — Kolkata</option><option>GMT+0 — London</option></select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 2 -->
+    <section class="onboard-step" data-step="2" style="display:none;">
+      <div class="step-label">Step 2 of 4</div>
+      <h1>Notification preferences</h1>
+      <div class="card card-pad">
+        <div class="check-row"><input type="checkbox" checked><label>Browser notifications</label></div>
+        <div class="check-row"><input type="checkbox" checked><label>Email reminders</label></div>
+        <div class="check-row"><input type="checkbox"><label>SMS reminders</label></div>
+        <div class="check-row"><input type="checkbox" checked><label>Caregiver notifications</label></div>
+        <div class="check-row"><input type="checkbox" checked><label>Low-stock alerts</label></div>
+        <div class="check-row"><input type="checkbox" checked><label>Expiry alerts</label></div>
+        <div class="check-row"><input type="checkbox" checked><label>Missed-dose alerts</label></div>
+      </div>
+    </section>
+
+    <!-- Step 3 -->
+    <section class="onboard-step" data-step="3" style="display:none;">
+      <div class="step-label">Step 3 of 4</div>
+      <h1>Add your first medicine</h1>
+      <div class="option-card" onclick="location.href='medicines.html'">
+        <span class="icon-chip chip-teal" id="op-manual"></span>
+        <div><div class="title">Add manually</div><div class="desc">Enter name, strength, and schedule yourself</div></div>
+      </div>
+      <div class="option-card" onclick="location.href='medicines.html'">
+        <span class="icon-chip chip-gold" id="op-scan"></span>
+        <div><div class="title">Scan medicine label</div><div class="desc">Take a photo and confirm the details we find</div></div>
+      </div>
+      <div class="option-card" onclick="location.href='prescriptions.html'">
+        <span class="icon-chip chip-success" id="op-upload"></span>
+        <div><div class="title">Upload prescription</div><div class="desc">We'll draft medicine entries from the file</div></div>
+      </div>
+      <div class="option-card" style="opacity:.55; cursor:not-allowed;">
+        <span class="icon-chip chip-warning" id="op-ai"></span>
+        <div><div class="title">Ask Wellora Assistant</div><div class="desc">Describe your medicine in your own words</div></div>
+      </div>
+      <p class="text-faint" style="font-size:12.5px;">You can also skip this and add a medicine later from the dashboard.</p>
+    </section>
+
+    <!-- Step 4 -->
+    <section class="onboard-step" data-step="4" style="display:none;">
+      <div class="step-label">Step 4 of 4</div>
+      <h1>Add a family member</h1>
+      <div class="card card-pad">
+        <div class="field">
+          <label>Full name</label>
+          <input type="text" placeholder="e.g. Mother">
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Relationship</label>
+            <select><option>Mother</option><option>Father</option><option>Partner</option><option>Child</option><option>Grandparent</option></select>
+          </div>
+          <div class="field">
+            <label>Date of birth</label>
+            <input type="date">
+          </div>
+        </div>
+        <div class="field">
+          <label>Notes <span class="text-faint">(optional)</span></label>
+          <textarea placeholder="Anything helpful to know, e.g. mobility, hearing"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <div class="onboard-actions">
+      <button class="btn btn-secondary" id="btn-back" onclick="goStep(-1)">Back</button>
+      <div style="display:flex; gap:10px;">
+        <button class="btn btn-ghost" id="btn-skip" onclick="location.href='dashboard.html'">Skip for now</button>
+        <button class="btn btn-primary" id="btn-next" onclick="goStep(1)">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/icons.js"></script>
+<script src="js/data.js"></script>
+<script>
+  document.getElementById("logo-mark").innerHTML = icon("logo");
+  document.getElementById("op-manual").innerHTML = icon("edit");
+  document.getElementById("op-scan").innerHTML = icon("camera");
+  document.getElementById("op-upload").innerHTML = icon("upload");
+  document.getElementById("op-ai").innerHTML = icon("assistant");
+
+  let step = 1;
+  const totalSteps = 4;
+  function renderDots(){
+    const el = document.getElementById("step-dots");
+    el.innerHTML = "";
+    for (let i=1;i<=totalSteps;i++){
+      const d = document.createElement("span");
+      d.className = "step-dot" + (i < step ? " done" : i === step ? " active" : "");
+      el.appendChild(d);
+    }
+  }
+  function goStep(dir){
+    const next = step + dir;
+    if (next < 1) return;
+    if (next > totalSteps){ location.href = "dashboard.html"; return; }
+    document.querySelector(`.onboard-step[data-step="${step}"]`).style.display = "none";
+    step = next;
+    document.querySelector(`.onboard-step[data-step="${step}"]`).style.display = "block";
+    document.getElementById("btn-back").style.visibility = step === 1 ? "hidden" : "visible";
+    document.getElementById("btn-next").textContent = step === totalSteps ? "Finish setup" : "Continue";
+    renderDots();
+  }
+  document.getElementById("btn-back").style.visibility = "hidden";
+  renderDots();
+</script>
+</body>
+</html>

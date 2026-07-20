@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create your Wellora account</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="auth-form-col">
+    <div class="auth-box">
+      <h1>Create your Wellora account</h1>
+
+      <form onsubmit="event.preventDefault(); location.href='onboarding.html';">
+        <div class="field">
+          <label for="fullname">Full name</label>
+          <input type="text" id="fullname">
+        </div>
+        <div class="field">
+          <label for="dob">Date Of Birth</label>
+          <input type="date" id="dob">
+        </div>
+        <div class="field">
+          <label for="gender">Gender</label>
+          <select id="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="email">Email address</label>
+          <input type="email" id="email">
+        </div>
+        <div class="field">
+          <label for="phone">Phone number</label>
+          <input type="tel" id="phone">
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="password">Password</label>
+            <input type="password" id="password>
+          </div>
+          <div class="field">
+            <label for="confirm">Confirm password</label>
+            <input type="password" id="confirm" required>
+          </div>
+        </div>
+       
+
+        <div class="check-row">
+          <input type="checkbox" id="terms" required>
+          <label for="terms">I agree to the Terms and Privacy Policy</label>
+        </div>
+      
+
+        <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+      </form>
+
+      <p class="auth-foot">Already have an account? <a href="login.html">Sign in</a></p>
+    </div>
+  </div>
+</div>
+
+<script src="js/icons.js"></script>
+<script src="js/data.js"></script>
+<script>
+  document.getElementById("logo-mark").innerHTML = icon("logo");
+  document.getElementById("ic-google").innerHTML = icon("google");
+  document.getElementById("ic-apple").innerHTML = icon("apple");
+  document.getElementById("side-strip").innerHTML = renderStrip(["taken","taken","upcoming","upcoming","upcoming"]);
+</script>
+</body>
+</html>

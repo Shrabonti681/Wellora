@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings — Wellora</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+  <div id="sidebar-slot"></div>
+  <div class="main-col">
+    <div id="topbar-slot"></div>
+    <main class="page page-narrow">
+      <div class="page-head"><h1>Settings</h1><p class="sub">Manage your account, notifications, and accessibility preferences.</p></div>
+
+      <div class="tab-row" data-tab-group>
+        <button class="active" data-tab="account">Account</button>
+        <button data-tab="notifications">Notifications</button>
+        <button data-tab="inventory">Inventory</button>
+        <button data-tab="dose">Dose</button>
+        <button data-tab="privacy">Privacy</button>
+        <button data-tab="accessibility">Accessibility</button>
+      </div>
+
+      <div data-tab-group>
+        <div class="tab-panel active" data-panel="account">
+          <div class="card card-pad">
+            <div class="field"><label>Full name</label><input type="text" value="Rheetam Ahmed"></div>
+            <div class="field"><label>Email</label><input type="email" value="rheetam@example.com"></div>
+            <div class="field"><label>Phone number</label><input type="tel" value="+880 1XXX XXXXXX"></div>
+            <div class="field"><label>Password</label><button class="btn btn-secondary btn-sm">Change password</button></div>
+            <div class="field" style="margin-bottom:0;">
+              <label>Two-factor authentication</label>
+              <select><option>Off</option><option>Email code</option><option>SMS code</option><option>Authenticator app</option></select>
+            </div>
+          </div>
+          <div style="margin-top:16px;"><button class="btn btn-primary" onclick="showToast('Account settings saved')">Save Changes</button></div>
+        </div>
+
+        <div class="tab-panel" data-panel="notifications">
+          <div class="card card-pad">
+            <div class="check-row"><input type="checkbox" checked><label>Dose reminders</label></div>
+            <div class="check-row"><input type="checkbox" checked><label>Missed-dose alerts</label></div>
+            <div class="check-row"><input type="checkbox" checked><label>Low-stock reminders</label></div>
+            <div class="check-row"><input type="checkbox" checked><label>Expiry alerts</label></div>
+            <div class="check-row"><input type="checkbox" checked><label>Prescription renewal reminders</label></div>
+            <div class="check-row" style="margin-bottom:0;"><input type="checkbox" checked><label>Caregiver alerts</label></div>
+          </div>
+          <div style="margin-top:16px;"><button class="btn btn-primary" onclick="showToast('Notification settings saved')">Save Changes</button></div>
+        </div>
+
+        <div class="tab-panel" data-panel="inventory">
+          <div class="card card-pad">
+            <div class="field"><label>Default low-stock threshold</label><input type="number" value="10" style="max-width:140px;"></div>
+            <div class="check-row"><input type="checkbox" checked><label>Automatic inventory deduction when a dose is marked taken</label></div>
+            <div class="check-row"><input type="checkbox"><label>Allow negative inventory</label></div>
+            <div class="check-row" style="margin-bottom:0;"><input type="checkbox" checked><label>Require confirmation for inventory corrections</label></div>
+          </div>
+          <div class="safety-note" style="margin-top:14px;"><span id="ic-safety1"></span><div><strong>Recommended default</strong>Do not allow inventory to become negative.</div></div>
+          <div style="margin-top:16px;"><button class="btn btn-primary" onclick="showToast('Inventory settings saved')">Save Changes</button></div>
+        </div>
+
+        <div class="tab-panel" data-panel="dose">
+          <div class="card card-pad">
+            <div class="field"><label>Default reminder window</label><select><option>10 minutes before</option><option>At scheduled time</option><option>30 minutes before</option></select></div>
+            <div class="field"><label>Late-dose definition</label><select><option>More than 1 hour after scheduled time</option><option>More than 2 hours after</option><option>More than 30 minutes after</option></select></div>
+            <div class="field"><label>Automatic missed status after</label><select><option>2 hours</option><option>1 hour</option><option>4 hours</option></select></div>
+            <div class="field" style="margin-bottom:0;"><label>Reminder repetition</label><select><option>Every 15 minutes until recorded</option><option>Once only</option></select></div>
+          </div>
+          <div style="margin-top:16px;"><button class="btn btn-primary" onclick="showToast('Dose settings saved')">Save Changes</button></div>
+        </div>
+
+        <div class="tab-panel" data-panel="privacy">
+          <div class="card card-pad">
+            <div class="row-item"><span class="txt">Download account data</span><button class="btn btn-secondary btn-sm">Download</button></div>
+            <div class="row-item"><span class="txt">Manage caregiver access</span><button class="btn btn-secondary btn-sm" onclick="location.href='family.html'">Manage</button></div>
+            <div class="row-item"><span class="txt">View login history</span><button class="btn btn-secondary btn-sm">View</button></div>
+            <div class="row-item"><span class="txt">Revoke active sessions</span><button class="btn btn-secondary btn-sm">Revoke</button></div>
+            <div class="row-item" style="border-bottom:none;"><span class="txt text-critical">Delete account</span><button class="btn btn-critical btn-sm" onclick="openModal('modal-delete-account')">Delete</button></div>
+          </div>
+        </div>
+
+        <div class="tab-panel" data-panel="accessibility">
+          <div class="card card-pad">
+            <div class="check-row"><input type="checkbox"><label>Large text</label></div>
+            <div class="check-row"><input type="checkbox"><label>High contrast</label></div>
+            <div class="check-row"><input type="checkbox" id="chk-simplified"><label for="chk-simplified">Simplified mode — larger buttons, minimal navigation</label></div>
+            <div class="check-row"><input type="checkbox"><label>Voice input</label></div>
+            <div class="check-row"><input type="checkbox"><label>Read notifications aloud</label></div>
+            <div class="check-row" style="margin-bottom:0;"><input type="checkbox"><label>Reduced motion</label></div>
+          </div>
+          <div style="margin-top:16px; display:flex; gap:10px;">
+            <button class="btn btn-primary" onclick="showToast('Accessibility settings saved')">Save Changes</button>
+            <button class="btn btn-secondary" onclick="location.href='simplified.html'">Preview simplified mode</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<div id="mobilenav-slot"></div>
+
+<div class="modal-overlay" id="modal-delete-account">
+  <div class="modal">
+    <h3>Delete your account?</h3>
+    <p class="modal-sub">This permanently removes your medicines, schedules, inventory, and prescriptions. This cannot be undone.</p>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('modal-delete-account')">Cancel</button>
+      <button class="btn btn-critical" onclick="confirmAndClose('modal-delete-account','Account deletion requested')">Delete Account</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/icons.js"></script>
+<script src="js/data.js"></script>
+<script src="js/components.js"></script>
+<script src="js/app.js"></script>
+<script>
+  renderShell("settings");
+  initTabs();
+  document.getElementById("ic-safety1").innerHTML = icon("info");
+</script>
+</body>
+</html>

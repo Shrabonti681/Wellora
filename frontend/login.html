@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sign in — Wellora</title>
+
+<link rel="stylesheet" href="css/styles.css">
+
+<style>
+
+.auth-form-col{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:70px;
+    width:100%;
+}
+
+.login-image img{
+    width:420px;
+    max-width:100%;
+    border-radius:18px;
+    box-shadow:0 12px 30px rgba(0,0,0,0.15);
+}
+
+@media(max-width:900px){
+
+    .auth-form-col{
+        flex-direction:column;
+        gap:30px;
+    }
+
+    .login-image img{
+        width:320px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="auth-shell">
+
+
+  <div class="auth-side">
+
+    <div class="brand" style="text-decoration:none;">
+
+      <span class="brand-mark" id="logo-mark"></span>
+
+      <span class="brand-name" style="color:#fff;">
+        Wellora
+      </span>
+
+    </div>
+
+
+    <div id="side-strip"></div>
+
+
+  </div>
+
+
+
+  <div class="auth-form-col">
+    <!-- Login Form -->
+
+    <div class="auth-box">
+
+
+      <h1 style="font-size:42px; font-weight:700; margin-bottom:35px;">
+        Login to Wellora
+      </h1>
+
+
+
+      <form onsubmit="event.preventDefault(); location.href='dashboard.html';">
+
+
+
+        <div class="field">
+
+          <label for="email" style="font-size:16px;font-weight:600;">
+            Email address
+          </label>
+
+
+          <input
+          type="email"
+          id="email"
+          required
+          style="font-size:16px;padding:14px 16px;">
+
+        </div>
+
+
+
+
+
+        <div class="field">
+
+          <label for="password" style="font-size:16px;font-weight:600;">
+            Password
+          </label>
+
+
+          <input
+          type="password"
+          id="password"
+          required
+          style="font-size:16px;padding:14px 16px;">
+
+        </div>
+
+
+
+
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:22px;">
+
+
+          <label style="display:flex;align-items:center;gap:8px;font-size:15px;color:var(--ink-soft);">
+
+            <input 
+            type="checkbox"
+            style="width:16px;height:16px;accent-color:var(--teal);">
+
+            Remember me
+
+          </label>
+
+
+
+
+          <a href="#"
+          style="font-size:15px;font-weight:600;color:var(--teal-deep);text-decoration:none;">
+
+            Forgot password?
+
+          </a>
+
+
+        </div>
+
+
+
+
+
+
+        <button 
+        type="submit"
+        class="btn btn-primary btn-block"
+        style="padding:15px;font-size:17px;">
+
+          Log In
+
+        </button>
+
+
+
+      </form>
+
+
+
+
+
+
+      <button 
+      class="oauth-btn"
+      style="margin-top:28px;padding:15px;font-size:17px;">
+
+
+        <span id="ic-google"></span>
+
+        Continue with Google
+
+
+      </button>
+
+
+
+
+
+
+
+      <p class="auth-foot" style="margin-top:28px;font-size:15px;">
+
+        Don't have an account?
+
+        <a href="register.html">
+          Create one
+        </a>
+
+      </p>
+
+
+
+    </div>
+
+
+
+  </div>
+
+
+
+</div>
+
+
+
+
+
+<script src="js/icons.js"></script>
+
+<script src="js/data.js"></script>
+
+
+
+<script>
+
+
+document.getElementById("logo-mark").innerHTML = icon("logo");
+
+
+document.getElementById("ic-google").innerHTML = icon("google");
+
+
+
+if(document.getElementById("side-strip") && typeof renderStrip === "function"){
+
+    document.getElementById("side-strip").innerHTML =
+    renderStrip(["taken","taken","taken","taken","upcoming"]);
+
+}
+
+
+
+</script>
+
+
+
+</body>
+</html>
